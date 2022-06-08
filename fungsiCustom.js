@@ -20,33 +20,35 @@ let modifyFile3 = (val) => {
 // TODO: Kerjakan bacaData
 // gunakan variabel file1, file2, dan file3
 const bacaData = function (fnCallback) {
-  const files = [file1, file2, file3];
-  let dataJSON;
-  // const hasilMessage = [];
-  let hasilMessage = [];
+  let hasilAkhir = [];
+  let error = null;
 
-  // files.forEach((element) => {
-  for (let counter = 0; counter < files.length; counter++) {
-    fs.readFile(files[counter], { encoding: "utf8" }, (err, dataYangDibaca) => {
-      if (err) {
-        return console.log("Ada terjadi error: " + err);
-      } else {
-        let arrayOfObject = JSON.parse(dataYangDibaca);
-        if (arrayOfObject.message != undefined) {
-          dataJSON = arrayOfObject.message;
-        } else {
-          if (arrayOfObject[0].message != undefined) {
-            dataJSON = arrayOfObject[0].message;
-          } else {
-            dataJSON = arrayOfObject[0].data.message;
-          }
-        }
-        let msg = dataJSON.split(" ");
-        msg = msg[1];
-        hasilMessage.push(msg);
-      }
-    });
-  }
+  fs.readFile(file1, { encoding: "utf8" }, (err, dataYangDibaca) => {
+    if (err) {
+      return err;
+    }
+    let arrayOfObject = JSON.parse(dataYangDibaca);
+    let messageWord = arrayOfObject.message.split(" ");
+    hasilAkhir.push(messageWord);
+  });
+  fs.readFile(file2, { encoding: "utf8" }, (err, dataYangDibaca) => {
+    if (err) {
+      return err;
+    }
+    let arrayOfObject = JSON.parse(dataYangDibaca);
+    let messageWord = arrayOfObject[0].message.split(" ");
+    hasilAkhir.push(messageWord);
+  });
+  fs.readFile(file3, { encoding: "utf8" }, (err, dataYangDibaca) => {
+    if (err) {
+      return err;
+    }
+    let arrayOfObject = JSON.parse(dataYangDibaca);
+    let messageWord = arrayOfObject[0].data.message.split(" ");
+    hasilAkhir.push(messageWord);
+  });
+
+  fnCallback(error, hasilAkhir);
 };
 // ! JANGAN DIMODIFIKASI
 module.exports = {
