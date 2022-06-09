@@ -29,26 +29,32 @@ const bacaData = function (fnCallback) {
     }
     let arrayOfObject = JSON.parse(dataYangDibaca);
     let messageWord = arrayOfObject.message.split(" ");
-    hasilAkhir.push(messageWord);
-  });
-  fs.readFile(file2, { encoding: "utf8" }, (err, dataYangDibaca) => {
-    if (err) {
-      return err;
-    }
-    let arrayOfObject = JSON.parse(dataYangDibaca);
-    let messageWord = arrayOfObject[0].message.split(" ");
-    hasilAkhir.push(messageWord);
-  });
-  fs.readFile(file3, { encoding: "utf8" }, (err, dataYangDibaca) => {
-    if (err) {
-      return err;
-    }
-    let arrayOfObject = JSON.parse(dataYangDibaca);
-    let messageWord = arrayOfObject[0].data.message.split(" ");
-    hasilAkhir.push(messageWord);
-  });
+    let data1 = messageWord[1];
+    hasilAkhir.push(data1);
 
-  fnCallback(error, hasilAkhir);
+    fs.readFile(file2, { encoding: "utf8" }, (err, dataYangDibaca) => {
+      if (err) {
+        return err;
+      }
+      let arrayOfObject = JSON.parse(dataYangDibaca);
+      let messageWord = arrayOfObject[0].message.split(" ");
+      let data2 = messageWord[1];
+      hasilAkhir.push(data2);
+
+      fs.readFile(file3, { encoding: "utf8" }, (err, dataYangDibaca) => {
+        if (err) {
+          return err;
+        }
+        let arrayOfObject = JSON.parse(dataYangDibaca);
+        let messageWord = arrayOfObject[0].data.message.split(" ");
+        let data3 = messageWord[1];
+        hasilAkhir.push(data3);
+        console.log(hasilAkhir);
+
+        return error, hasilAkhir;
+      });
+    });
+  });
 };
 // ! JANGAN DIMODIFIKASI
 module.exports = {
