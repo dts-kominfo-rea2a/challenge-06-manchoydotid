@@ -51,7 +51,7 @@ const bacaData = function (fnCallback) {
         hasilAkhir.push(data3);
         console.log(hasilAkhir);
 
-        return error, hasilAkhir;
+        return fnCallback(error, hasilAkhir);
       });
     });
   });
